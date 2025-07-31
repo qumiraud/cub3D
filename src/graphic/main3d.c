@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/07/31 11:18:44 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:26:18 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,9 +298,11 @@ void	raycasting_loop(t_data *data)
 			tex_num = (ray_dir_y < 0) ? 2 : 3; // 2 = EA (Est), 3 = WE (Ouest)
 		}
 		if (side == 0)
-			wall_x = POS_Y + perp_wall_dist * ray_dir_y;
+			wall_x = data->player->pos_y + perp_wall_dist * ray_dir_y; // modif
+		// wall_x = POS_Y + perp_wall_dist * ray_dir_y;
 		else
-			wall_x = POS_X + perp_wall_dist * ray_dir_x;
+			wall_x = data->player->pos_x + perp_wall_dist * ray_dir_x; // modif
+			// wall_x = POS_X + perp_wall_dist * ray_dir_x;
 		printf("wall_x before : %f |", wall_x);
 		wall_x -= floor((wall_x));
 		printf("wall_x after : %f\n", wall_x);
@@ -312,7 +314,7 @@ void	raycasting_loop(t_data *data)
 		if (side == 1 && ray_dir_y < 0)
 			tex_x = TEXWIDTH -tex_x - 1;
 		printf("tex_x after : %d\n", tex_x);
-		step = 1 * TEXHEIGHT / line_height;
+		step = 1.0 * TEXHEIGHT / (double)line_height;
 		tex_pos = ((double)draw_start - SCREEN_HEIGHT * 0.5 + (double)line_height * 0.5) * step;
 		y = draw_start;
 		while(y < draw_end)
