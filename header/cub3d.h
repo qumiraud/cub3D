@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:15:56 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/07/30 11:50:21 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/01 11:26:05 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include <X11/keysym.h>
 #include <time.h>
 
+#define MAP_WIDTH 24
+#define MAP_HEIGHT 24
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+#define TEXWIDTH 64
+#define TEXHEIGHT 64
 
 #define WHITE 0xFFFFFF
 #define BLACK 0x000000
@@ -126,6 +132,65 @@ typedef struct s_mlx_win
 
 }		t_mlx_win;
 
+typedef struct	s_ray
+{
+	int		x;
+	int		y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_num; //permet de designer la texture choisi a afficher
+	int		tex_x;
+	int		tex_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	wall_x;
+	double	step;
+	double	tex_pos; //position de depart dans la texture pour commencer a draw
+	__uint32_t	buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
+	__uint32_t	color;
+}	t_ray;
+
+#define X data->ray->x
+#define Y data->ray->y
+#define MAP_X data->ray->map_x
+#define MAP_Y data->ray->map_y
+#define STEP_X data->ray->step_x
+#define STEP_Y data->ray->step_y
+#define HIT data->ray->hit
+#define SIDE data->ray->side
+#define LINE_HEIGHT data->ray->line_height
+#define DRAW_START data->ray->draw_start
+#define DRAW_END data->ray->draw_end
+#define TEX_NUM data->ray->tex_num
+#define TEX_X data->ray->tex_x
+#define TEX_Y data->ray->tex_y
+#define SIDE_DIST_X data->ray->side_dist_x
+#define SIDE_DIST_Y data->ray->side_dist_y
+#define DELTA_DIST_X data->ray->delta_dist_x
+#define DELTA_DIST_Y data->ray->delta_dist_y
+#define PERP_WALL_DIST data->ray->perp_wall_dist
+#define CAMERA_X data->ray->camera_x
+#define RAY_DIR_X data->ray->ray_dir_x
+#define RAY_DIR_Y data->ray->ray_dir_y
+#define WALL_X data->ray->wall_x
+#define STEP data->ray->step
+#define TEX_POS data->ray->tex_pos
+#define BUFFER data->ray->buffer
+#define COLOR data->ray->color
+
 typedef struct s_data
 {
 	char		**map;
@@ -149,6 +214,7 @@ typedef struct s_data
 	t_mlx_win	*win;
 	t_player	*player;
 	t_img		img;
+	t_ray		*ray;
 
 }	t_data;
 

@@ -72,8 +72,9 @@ int	handle_key(int keycode, t_data *data)
 		PLANE_Y = old_plane_x * sin(ROT_SPEED) + PLANE_Y * cos(ROT_SPEED);
 	}
 	if (keycode == 'd' /*|| keycode == 100 || keycode == XK_Right*/)
-			;	// new_x = data->player->pos_x - data->player->move_speed;
-
+	{
+		;	// new_x = data->player->pos_x - data->player->move_speed;
+	}
 	// if (data->map[(int)data->player->pos_x][(int)data->player->pos_Y] != '1')
 	// {
 	// data->player->pos_y = new_y;

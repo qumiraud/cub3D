@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/07/31 11:26:18 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/07/31 21:10:04 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,9 +359,9 @@ void	raycasting_loop(t_data *data)
 	data->bigben->old_time = data->bigben->time;
 	data->bigben->time = clock();
 	data->bigben->frame_time = (data->bigben->time - data->bigben->old_time) / CLOCKS_PER_SEC;
-	data->player->move_speed = data->bigben->frame_time * 50.0;
+	data->player->move_speed = data->bigben->frame_time * 16.0;
 	printf ("FPS : %.2f\n", 1 / data->bigben->frame_time);
-	data->player->rot_speed = data->bigben->frame_time * 30.0;
+	data->player->rot_speed = data->bigben->frame_time * 8.0;
 }
 
 int main(int argc, char **argv)
