@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:12:05 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/01 14:13:54 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/03 23:24:42 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,17 +147,17 @@ void	raycasting_loop(t_data *data)
 		else
 			WALL_X = POS_X + PERP_WALL_DIST * RAY_DIR_X; // modif
 			// wall_x = POS_X + perp_wall_dist * ray_dir_x;
-		printf("wall_x before : %f |", WALL_X);
+		// printf("wall_x before : %f |", WALL_X);
 		WALL_X -= floor((WALL_X));
-		printf("wall_x after : %f\n", WALL_X);
-		printf("tex_x before : %d\n", TEX_X);
+		// printf("wall_x after : %f\n", WALL_X);
+		// printf("tex_x before : %d\n", TEX_X);
 		TEX_X = (int)(WALL_X * (double)TEXWIDTH);
-		printf("tex_x after : %d\n", TEX_X);
+		// printf("tex_x after : %d\n", TEX_X);
 		if (SIDE == 0 && RAY_DIR_X > 0)
 			TEX_X = TEXWIDTH - TEX_X - 1;
 		if (SIDE == 1 && RAY_DIR_Y < 0)
 			TEX_X = TEXWIDTH -TEX_X - 1;
-		printf("tex_x after : %d\n", TEX_X);
+		// printf("tex_x after : %d\n", TEX_X);
 		STEP = 1.0 * TEXHEIGHT / (double)LINE_HEIGHT;
 		TEX_POS = ((double)DRAW_START - SCREEN_HEIGHT * 0.5 + (double)LINE_HEIGHT * 0.5) * STEP;
 		Y = DRAW_START;

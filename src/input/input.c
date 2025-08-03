@@ -30,26 +30,26 @@ int	handle_key(int keycode, t_data *data)
 	{
 			// new_y = data->player->pos_y + data->player->move_speed;
 			printf("Pos_x: %f | Pos_y : %f | Dir_x : %f\n\n", POS_X, POS_Y, DIR_X);
-			// if (data->map[(int)(POS_X + DIR_X * MOVE_SPEED + 0.2)][(int)(POS_Y + 0.2)] == '0')
-			// {
+			if (data->map[(int)(POS_Y)][(int)(POS_X + DIR_X * (MOVE_SPEED + 0.1))] != '1')
+			{
 				printf("espoir \n\n\n");
 				POS_X += DIR_X * MOVE_SPEED;
 
-			// }
-			// if (data->map[(int)(POS_X + 0.2)][(int)(POS_Y + DIR_Y * MOVE_SPEED + 0.2) ] == '0')
+			}
+			if (data->map[(int)(POS_Y + DIR_Y * (MOVE_SPEED + 0.1)) ][(int)(POS_X)] != '1')
 				POS_Y += DIR_Y * MOVE_SPEED;
 	}
 	if (keycode == 's' || keycode == 115 || keycode == XK_Down)
 	{
 		// new_y = POS_Y - MOVE_SPEED;
-		// if (data->map[(int)(POS_X - DIR_X * MOVE_SPEED)][(int)POS_Y])
-		// {
+		if (data->map[(int)POS_Y][(int)(POS_X - DIR_X * (MOVE_SPEED + 0.1))] != '1')
+		{
 			printf("desespoir \n\n\n");
 			POS_X -= DIR_X * MOVE_SPEED;
-			printf("Pos_x: %f | Pos_y : %f | Dir_x : %f\n\n", POS_X, POS_Y, DIR_X);
+			// printf("Pos_x: %f | Pos_y : %f | Dir_x : %f\n\n", POS_X, POS_Y, DIR_X);
 
-		// }
-		// if (data->map[(int)POS_X][(int)(POS_Y - DIR_Y * MOVE_SPEED)])
+		}
+		if (data->map[(int)(POS_Y - DIR_Y * (MOVE_SPEED + 0.1))][(int)POS_X] != '1')
 			POS_Y -= DIR_Y * MOVE_SPEED;
 	}
 	if (keycode == XK_Left || keycode == XK_a)
@@ -83,12 +83,12 @@ int	handle_key(int keycode, t_data *data)
 	// mlx_clear_window(data->win->mlx_ptr, data->win->mlx_win);
 	// render_map(data);
 	// mlx_put_image_to_window(data->win->mlx_ptr, data->win->mlx_win, data->player->player_img, data->player->pos_x, data->player->pos_y);
-	printf("pos_x_update : %f\n\n", POS_X);
-	printf("pos_y_update : %f\n\n", POS_Y);
+	// printf("pos_x_update : %f\n\n", POS_X);
+	// printf("pos_y_update : %f\n\n", POS_Y);
 	// mlx_clear_window(data->win->mlx_ptr, data->win->mlx_win);
 	raycasting_loop(data);
 
-	printf("Test Handle_key :end\n\n\n");
+	// printf("Test Handle_key :end\n\n\n");
 
 	return (0);
 

@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/07/31 21:10:04 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/03 23:27:29 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,197 +172,197 @@ void	init_time(t_bigben *bigben)
 	bigben->time = 0;
 }
 
-void	raycasting_loop(t_data *data)
-{
-	// https://www.notion.so/Ray-Casting-220938a31f20806a8dd4c3dec8392e20?source=copy_link
-	int		x;
-	int		y;
-	int		map_x;
-	int		map_y;
-	int		step_x = 0;
-	int		step_y = 0;
-	int		hit = 0;
-	int		side = 0;
-	int		line_height = 0;
-	int		draw_start = 0;
-	int		draw_end = 0;
-	int		tex_num; //permet de designer la texture choisi a afficher
-	int		tex_x;
-	int		tex_y;
-	double	side_dist_x = 0;
-	double	side_dist_y = 0;
-	double	delta_dist_x = 0;
-	double	delta_dist_y = 0;
-	double	perp_wall_dist = 0;
-	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	wall_x;
-	double	step;
-	double	tex_pos; //position de depart dans la texture pour commencer a draw
-	__uint32_t	buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
-	__uint32_t	color;
+// void	raycasting_loop(t_data *data)
+// {
+// 	// https://www.notion.so/Ray-Casting-220938a31f20806a8dd4c3dec8392e20?source=copy_link
+// 	int		x;
+// 	int		y;
+// 	int		map_x;
+// 	int		map_y;
+// 	int		step_x = 0;
+// 	int		step_y = 0;
+// 	int		hit = 0;
+// 	int		side = 0;
+// 	int		line_height = 0;
+// 	int		draw_start = 0;
+// 	int		draw_end = 0;
+// 	int		tex_num; //permet de designer la texture choisi a afficher
+// 	int		tex_x;
+// 	int		tex_y;
+// 	double	side_dist_x = 0;
+// 	double	side_dist_y = 0;
+// 	double	delta_dist_x = 0;
+// 	double	delta_dist_y = 0;
+// 	double	perp_wall_dist = 0;
+// 	double	camera_x;
+// 	double	ray_dir_x;
+// 	double	ray_dir_y;
+// 	double	wall_x;
+// 	double	step;
+// 	double	tex_pos; //position de depart dans la texture pour commencer a draw
+// 	__uint32_t	buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
+// 	__uint32_t	color;
 
-	x = 0;
-	side_dist_x = 0;
-	side_dist_y = 0;
+// 	x = 0;
+// 	side_dist_x = 0;
+// 	side_dist_y = 0;
 	
-	for (int y = 0; y < SCREEN_HEIGHT; y++)
-	{
-		for (int x = 0; x < SCREEN_WIDTH; x++)
-		{
-			if (y < SCREEN_HEIGHT / 2)
-				buffer[y][x] = 0x333366; // couleur du ciel
-			else
-				buffer[y][x] = 0x222222; // couleur du sol
-		}
-	}
+// 	for (int y = 0; y < SCREEN_HEIGHT; y++)
+// 	{
+// 		for (int x = 0; x < SCREEN_WIDTH; x++)
+// 		{
+// 			if (y < SCREEN_HEIGHT / 2)
+// 				buffer[y][x] = 0x333366; // couleur du ciel
+// 			else
+// 				buffer[y][x] = 0x222222; // couleur du sol
+// 		}
+// 	}
 
 
 	
-	while (x < SCREEN_WIDTH)
-	{
-		camera_x = 2.00 * (double)x / SCREEN_WIDTH - 1;
-		// printf("camera_x : %2.f", camera_x);
-		ray_dir_x = data->player->dir_x + data->player->plane_x * camera_x;
-		ray_dir_y = data->player->dir_y + data->player->plane_y * camera_x;
-		map_x = (int)data->player->pos_x;
-		map_y = (int)data->player->pos_y;
-		if (ray_dir_x == 0)
-			delta_dist_x = 1e30;
-		else
-			delta_dist_x = fabs(1 / ray_dir_x);
-		if (ray_dir_y == 0)
-			delta_dist_y = 1e30;
-		else
-			delta_dist_y = fabs(1 / ray_dir_y);
-		if (ray_dir_x < 0)
-		{
-			step_x = -1;
-			side_dist_x = (data->player->pos_x - map_x) * delta_dist_x;
-		}
-		else
-		{
-			step_x = 1;
-			side_dist_x = (map_x + 1.0 - data->player->pos_x) * delta_dist_x;
-		}
-		if (ray_dir_y < 0)
-		{
-			step_y = -1;
-			side_dist_y = (data->player->pos_y - map_y) * delta_dist_y;
-		}
-		else
-		{
-			step_y = 1;
-			side_dist_y = (map_y + 1.0 - data->player->pos_y) * delta_dist_y;
-		}
-		// printf("BEFOREside_dist_x: %2.f, side_dist_y : %2.f\n\n", side_dist_x, side_dist_y);
-		// printf("BEFOREdelta_dist_x: %2.f, delta_dist_y : %2.f\n\n", delta_dist_x, delta_dist_y);
-		hit = 0;
-		while (hit == 0)
-		{
-			if (side_dist_x < side_dist_y)
-			{
-				side_dist_x += delta_dist_x;
-				map_x += step_x;
-				side = 0;
-			}
-			else
-			{
-				side_dist_y += delta_dist_y;
-				map_y += step_y;
-				side = 1;
-			}
-			if (data->map[map_y][map_x] == '1')
-				hit = 1;
-		}
-		if (side == 0)
-			perp_wall_dist = (side_dist_x - delta_dist_x);
-		else
-			perp_wall_dist = (side_dist_y - delta_dist_y);
-		line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
-		draw_start = -line_height * 0.5 + SCREEN_HEIGHT * 0.5;
-		if (draw_start < 0)
-			draw_start = 0;
-		draw_end = line_height * 0.5 + SCREEN_HEIGHT * 0.5;
-		if (draw_end >= SCREEN_HEIGHT)
-			draw_end = SCREEN_HEIGHT - 1;
-	// 	//DEBUT TEXTURING
+// 	while (x < SCREEN_WIDTH)
+// 	{
+// 		camera_x = 2.00 * (double)x / SCREEN_WIDTH - 1;
+// 		// printf("camera_x : %2.f", camera_x);
+// 		ray_dir_x = data->player->dir_x + data->player->plane_x * camera_x;
+// 		ray_dir_y = data->player->dir_y + data->player->plane_y * camera_x;
+// 		map_x = (int)data->player->pos_x;
+// 		map_y = (int)data->player->pos_y;
+// 		if (ray_dir_x == 0)
+// 			delta_dist_x = 1e30;
+// 		else
+// 			delta_dist_x = fabs(1 / ray_dir_x);
+// 		if (ray_dir_y == 0)
+// 			delta_dist_y = 1e30;
+// 		else
+// 			delta_dist_y = fabs(1 / ray_dir_y);
+// 		if (ray_dir_x < 0)
+// 		{
+// 			step_x = -1;
+// 			side_dist_x = (data->player->pos_x - map_x) * delta_dist_x;
+// 		}
+// 		else
+// 		{
+// 			step_x = 1;
+// 			side_dist_x = (map_x + 1.0 - data->player->pos_x) * delta_dist_x;
+// 		}
+// 		if (ray_dir_y < 0)
+// 		{
+// 			step_y = -1;
+// 			side_dist_y = (data->player->pos_y - map_y) * delta_dist_y;
+// 		}
+// 		else
+// 		{
+// 			step_y = 1;
+// 			side_dist_y = (map_y + 1.0 - data->player->pos_y) * delta_dist_y;
+// 		}
+// 		// printf("BEFOREside_dist_x: %2.f, side_dist_y : %2.f\n\n", side_dist_x, side_dist_y);
+// 		// printf("BEFOREdelta_dist_x: %2.f, delta_dist_y : %2.f\n\n", delta_dist_x, delta_dist_y);
+// 		hit = 0;
+// 		while (hit == 0)
+// 		{
+// 			if (side_dist_x < side_dist_y)
+// 			{
+// 				side_dist_x += delta_dist_x;
+// 				map_x += step_x;
+// 				side = 0;
+// 			}
+// 			else
+// 			{
+// 				side_dist_y += delta_dist_y;
+// 				map_y += step_y;
+// 				side = 1;
+// 			}
+// 			if (data->map[map_y][map_x] == '1')
+// 				hit = 1;
+// 		}
+// 		if (side == 0)
+// 			perp_wall_dist = (side_dist_x - delta_dist_x);
+// 		else
+// 			perp_wall_dist = (side_dist_y - delta_dist_y);
+// 		line_height = (int)(SCREEN_HEIGHT / perp_wall_dist);
+// 		draw_start = -line_height * 0.5 + SCREEN_HEIGHT * 0.5;
+// 		if (draw_start < 0)
+// 			draw_start = 0;
+// 		draw_end = line_height * 0.5 + SCREEN_HEIGHT * 0.5;
+// 		if (draw_end >= SCREEN_HEIGHT)
+// 			draw_end = SCREEN_HEIGHT - 1;
+// 	// 	//DEBUT TEXTURING
 
-		if (side == 0)
-		{
-			tex_num = (ray_dir_x < 0) ? 0 : 1; // 0 = NO (Nord), 1 = SO (Sud)
-		}
-		else
-		{
-			tex_num = (ray_dir_y < 0) ? 2 : 3; // 2 = EA (Est), 3 = WE (Ouest)
-		}
-		if (side == 0)
-			wall_x = data->player->pos_y + perp_wall_dist * ray_dir_y; // modif
-		// wall_x = POS_Y + perp_wall_dist * ray_dir_y;
-		else
-			wall_x = data->player->pos_x + perp_wall_dist * ray_dir_x; // modif
-			// wall_x = POS_X + perp_wall_dist * ray_dir_x;
-		printf("wall_x before : %f |", wall_x);
-		wall_x -= floor((wall_x));
-		printf("wall_x after : %f\n", wall_x);
-		printf("tex_x before : %d\n", tex_x);
-		tex_x = (int)(wall_x * (double)TEXWIDTH);
-		printf("tex_x after : %d\n", tex_x);
-		if (side == 0 && ray_dir_x > 0)
-			tex_x = TEXWIDTH - tex_x - 1;
-		if (side == 1 && ray_dir_y < 0)
-			tex_x = TEXWIDTH -tex_x - 1;
-		printf("tex_x after : %d\n", tex_x);
-		step = 1.0 * TEXHEIGHT / (double)line_height;
-		tex_pos = ((double)draw_start - SCREEN_HEIGHT * 0.5 + (double)line_height * 0.5) * step;
-		y = draw_start;
-		while(y < draw_end)
-		{
-			tex_y = (int)tex_pos & (TEXHEIGHT - 1);
-			tex_pos += step;
-			color = data->texture[tex_num][TEXHEIGHT * tex_y + tex_x];
-	// 		// exit(0);
-			if (side == 1)
-				color = (color >> 1) & 8355711;
-			buffer[y][x] = color;
-			y++;
-		}
-			// printf("color : %d, text_num : %d, TEXHEIGHT : %d, tex_y :%d, tex_x : %d\n\n", color, tex_num, TEXHEIGHT, tex_y, tex_x);
+// 		if (side == 0)
+// 		{
+// 			tex_num = (ray_dir_x < 0) ? 0 : 1; // 0 = NO (Nord), 1 = SO (Sud)
+// 		}
+// 		else
+// 		{
+// 			tex_num = (ray_dir_y < 0) ? 2 : 3; // 2 = EA (Est), 3 = WE (Ouest)
+// 		}
+// 		if (side == 0)
+// 			wall_x = data->player->pos_y + perp_wall_dist * ray_dir_y; // modif
+// 		// wall_x = POS_Y + perp_wall_dist * ray_dir_y;
+// 		else
+// 			wall_x = data->player->pos_x + perp_wall_dist * ray_dir_x; // modif
+// 			// wall_x = POS_X + perp_wall_dist * ray_dir_x;
+// 		printf("wall_x before : %f |", wall_x);
+// 		wall_x -= floor((wall_x));
+// 		printf("wall_x after : %f\n", wall_x);
+// 		printf("tex_x before : %d\n", tex_x);
+// 		tex_x = (int)(wall_x * (double)TEXWIDTH);
+// 		printf("tex_x after : %d\n", tex_x);
+// 		if (side == 0 && ray_dir_x > 0)
+// 			tex_x = TEXWIDTH - tex_x - 1;
+// 		if (side == 1 && ray_dir_y < 0)
+// 			tex_x = TEXWIDTH -tex_x - 1;
+// 		printf("tex_x after : %d\n", tex_x);
+// 		step = 1.0 * TEXHEIGHT / (double)line_height;
+// 		tex_pos = ((double)draw_start - SCREEN_HEIGHT * 0.5 + (double)line_height * 0.5) * step;
+// 		y = draw_start;
+// 		while(y < draw_end)
+// 		{
+// 			tex_y = (int)tex_pos & (TEXHEIGHT - 1);
+// 			tex_pos += step;
+// 			color = data->texture[tex_num][TEXHEIGHT * tex_y + tex_x];
+// 	// 		// exit(0);
+// 			if (side == 1)
+// 				color = (color >> 1) & 8355711;
+// 			buffer[y][x] = color;
+// 			y++;
+// 		}
+// 			// printf("color : %d, text_num : %d, TEXHEIGHT : %d, tex_y :%d, tex_x : %d\n\n", color, tex_num, TEXHEIGHT, tex_y, tex_x);
 
-	// 	// x++;
-	// 	// mlx_put_image_to_window(data->win->mlx_ptr, data->win->mlx_win, data->texture[0], x, draw_end);
-	// // }
-	// 	for (int y = 0; y < SCREEN_HEIGHT; y++)
-	// 	{
-	// 		for (int x = 0; x < SCREEN_WIDTH; x++)
-	// 		{
-	// 			int pixel_index = y * data->size_line + x * (data->bpp / 8);
-	// 			*((unsigned int *)(data->img_data + pixel_index)) = buffer[y][x];
-	// 		}
-	// 	}
-	// // mlx_put_image_to_window(data->win->mlx_ptr, data->win->mlx_win, data->texture[0], x, draw_end);
+// 	// 	// x++;
+// 	// 	// mlx_put_image_to_window(data->win->mlx_ptr, data->win->mlx_win, data->texture[0], x, draw_end);
+// 	// // }
+// 	// 	for (int y = 0; y < SCREEN_HEIGHT; y++)
+// 	// 	{
+// 	// 		for (int x = 0; x < SCREEN_WIDTH; x++)
+// 	// 		{
+// 	// 			int pixel_index = y * data->size_line + x * (data->bpp / 8);
+// 	// 			*((unsigned int *)(data->img_data + pixel_index)) = buffer[y][x];
+// 	// 		}
+// 	// 	}
+// 	// // mlx_put_image_to_window(data->win->mlx_ptr, data->win->mlx_win, data->texture[0], x, draw_end);
 
-		x++;
-	}
-	// mlx_clear_window(data->win->mlx_ptr, data->win->mlx_win);
-	// mlx_pixel_put(data->win->mlx_ptr, data->win->mlx_win, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
-	copy_buffer_to_image(data, buffer);
+// 		x++;
+// 	}
+// 	// mlx_clear_window(data->win->mlx_ptr, data->win->mlx_win);
+// 	// mlx_pixel_put(data->win->mlx_ptr, data->win->mlx_win, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
+// 	copy_buffer_to_image(data, buffer);
 
-		//AFFICHAGE AVEC LA MLX EN PIXEL
-		// while (draw_start <= draw_end)
-		// {
-		// mlx_put_image_to_window(data->win->mlx_ptr, data->win->mlx_win, data->texture[0], x, draw_end);
+// 		//AFFICHAGE AVEC LA MLX EN PIXEL
+// 		// while (draw_start <= draw_end)
+// 		// {
+// 		// mlx_put_image_to_window(data->win->mlx_ptr, data->win->mlx_win, data->texture[0], x, draw_end);
 
-		// ddddddddraw_start++;
-		// }
-	data->bigben->old_time = data->bigben->time;
-	data->bigben->time = clock();
-	data->bigben->frame_time = (data->bigben->time - data->bigben->old_time) / CLOCKS_PER_SEC;
-	data->player->move_speed = data->bigben->frame_time * 16.0;
-	printf ("FPS : %.2f\n", 1 / data->bigben->frame_time);
-	data->player->rot_speed = data->bigben->frame_time * 8.0;
-}
+// 		// ddddddddraw_start++;
+// 		// }
+// 	data->bigben->old_time = data->bigben->time;
+// 	data->bigben->time = clock();
+// 	data->bigben->frame_time = (data->bigben->time - data->bigben->old_time) / CLOCKS_PER_SEC;
+// 	data->player->move_speed = data->bigben->frame_time * 16.0;
+// 	printf ("FPS : %.2f\n", 1 / data->bigben->frame_time);
+// 	data->player->rot_speed = data->bigben->frame_time * 8.0;
+// }
 
 int main(int argc, char **argv)
 {

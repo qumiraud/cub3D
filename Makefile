@@ -20,6 +20,7 @@ SRC := src/graphic/main3d.c \
 		src/$(PARS)/get_params/params_utils.c \
 		src/input/input.c\
 		src/main_test.c \
+		src/graphic/raycasting.c\
 
 # Objets : transforme chaque .c en obj/chemin/vers/fichier.o
 OBJ := $(SRC:%.c=$(OBJDIR)/%.o)
