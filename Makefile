@@ -1,5 +1,5 @@
 
-NAME = guardian
+NAME = cub3D
 
 # Dossiers
 PARS = parsing
@@ -8,6 +8,8 @@ LIBFTDIR = libft
 
 # Sources
 SRC := src/graphic/main3d.c \
+		src/main/main.c\
+		src/graphic/raycasting.c\
 		src/$(PARS)/get_infile/infile_to_tab.c \
 		src/$(PARS)/map_to_rectangle.c \
 		src/$(PARS)/utils/free_stuff.c \
@@ -20,7 +22,6 @@ SRC := src/graphic/main3d.c \
 		src/$(PARS)/get_params/params_utils.c \
 		src/input/input.c\
 		src/main_test.c \
-		src/graphic/raycasting.c\
 
 # Objets : transforme chaque .c en obj/chemin/vers/fichier.o
 OBJ := $(SRC:%.c=$(OBJDIR)/%.o)

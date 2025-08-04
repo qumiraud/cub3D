@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:15:56 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/03 23:26:37 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/04 14:11:21 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,10 +232,19 @@ typedef struct s_data
 //############ GRAPHIC_DIR ############//
 int		main(int argc, char **argv);
 void	raycasting_loop(t_data *data);
-void    copy_buffer_to_image(t_data *data, __uint32_t buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
-void ft_init_ray_struct(t_ray *raycasting);
+void	copy_buffer_to_image(t_data *data, __uint32_t buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
+void	ft_init_ray_struct(t_ray *raycasting);
 void	render_map(t_data *data);
+void	find_player_start(t_data *data);
+void	dir_player(t_data *data, char c);
+void	init_image(t_data *data);
+void	fill_texture_tab(t_data *data);
+void	copy_buffer_to_image(t_data *data, __uint32_t buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
+void	init_time(t_bigben *bigben);
 
+
+//########### INPUT_DIR ##############//
+int main(int argc, char **argv);
 
 //########### INPUT_DIR ##############//
 int	handle_key(int keycode, t_data *data);
