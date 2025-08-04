@@ -9,6 +9,7 @@ LIBFTDIR = libft
 # Sources
 SRC := src/graphic/main3d.c \
 		src/main/main.c\
+		src/graphic/render.c\
 		src/graphic/raycasting.c\
 		src/$(PARS)/get_infile/infile_to_tab.c \
 		src/$(PARS)/map_to_rectangle.c \

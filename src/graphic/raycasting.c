@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:12:05 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/03 23:24:42 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:24:25 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,31 @@
 #include "../../header/cub3d.h"
 
 
-void ft_init_ray_struct(t_ray *raycasting)
+void	check_hit(t_data *data)
+{
+	while (HIT == 0)
+	{
+		if (SIDE_DIST_X < SIDE_DIST_Y)
+		{
+			SIDE_DIST_X += DELTA_DIST_X;
+			MAP_X += STEP_X;
+			SIDE = 0;
+		}
+		else
+		{
+			SIDE_DIST_Y += DELTA_DIST_Y;
+			MAP_Y += STEP_Y;
+			SIDE = 1;
+		}
+		if (MAP[MAP_Y][MAP_X] == '1')
+		{
+			HIT = 1;
+		}	
+	}
+	return ;
+}
+
+void	ft_init_ray_struct(t_ray *raycasting)
 {
 	raycasting->x = 0;
 	raycasting->y = 0;
@@ -41,7 +65,6 @@ void ft_init_ray_struct(t_ray *raycasting)
 	raycasting->wall_x = 0;
 	raycasting->step = 0;
 	raycasting->tex_pos = 0;
-	// raycasting->buffer = 0;
 	raycasting->color = 0;
 }
 
@@ -53,21 +76,11 @@ void	raycasting_loop(t_data *data)
 	ft_init_ray_struct(&raycasting);
 	data->ray = &raycasting;
 	
-	for (int y = 0; y < SCREEN_HEIGHT; y++)
-	{
-		for (int x = 0; x < SCREEN_WIDTH; x++)
-		{
-			if (y < SCREEN_HEIGHT / 2)
-				BUFFER[y][x] = 0x333366; // couleur du ciel
-			else
-				BUFFER[y][x] = 0x222222; // couleur du sol
-		}
-	}
+	clean_window(data);
 	
 	while (X < SCREEN_WIDTH)
 	{
 		CAMERA_X = 2.00 * (double)X / SCREEN_WIDTH - 1;
-		// printf("camera_x : %2.f", camera_x);
 		RAY_DIR_X = DIR_X + PLANE_X * CAMERA_X;
 		RAY_DIR_Y = DIR_Y + PLANE_Y * CAMERA_X;
 		MAP_X = (int)POS_X;
@@ -103,23 +116,7 @@ void	raycasting_loop(t_data *data)
 		// printf("BEFOREside_dist_x: %2.f, side_dist_y : %2.f\n\n", side_dist_x, side_dist_y);
 		// printf("BEFOREdelta_dist_x: %2.f, delta_dist_y : %2.f\n\n", delta_dist_x, delta_dist_y);
 		HIT = 0;
-		while (HIT == 0)
-		{
-			if (SIDE_DIST_X < SIDE_DIST_Y)
-			{
-				SIDE_DIST_X += DELTA_DIST_X;
-				MAP_X += STEP_X;
-				SIDE = 0;
-			}
-			else
-			{
-				SIDE_DIST_Y += DELTA_DIST_Y;
-				MAP_Y += STEP_Y;
-				SIDE = 1;
-			}
-			if (MAP[MAP_Y][MAP_X] == '1')
-				HIT = 1;
-		}
+		check_hit(data);
 		if (SIDE == 0)
 			PERP_WALL_DIST = (SIDE_DIST_X - DELTA_DIST_X);
 		else
