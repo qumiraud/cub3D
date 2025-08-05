@@ -26,6 +26,13 @@ int	handle_key(int keycode, t_data *data)
 		exit (0);
 		//exit (0); // need to go to a free function
 	}
+	if (keycode == XK_Tab )
+	{
+		if (data->fps_on_window == 0)
+			data->fps_on_window = 1;
+		else
+			data->fps_on_window = 0;
+	}
 	if (keycode == 'w' || keycode == 119 || keycode == XK_Up)
 	{
 			// new_y = data->player->pos_y + data->player->move_speed;

@@ -6,19 +6,12 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/04 14:08:49 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/05 10:38:39 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
 #include "../../header/cub3d.h"
-
-// #define MAP_WIDTH 24
-// #define MAP_HEIGHT 24
-// #define SCREEN_WIDTH 640
-// #define SCREEN_HEIGHT 480
-// #define TEXWIDTH 64
-// #define TEXHEIGHT 64
 
 void	fill_texture_tab(t_data *data)
 {
@@ -83,102 +76,64 @@ void	init_image(t_data *data)
 	}
 }
 
-void	dir_player(t_data *data, char c)
-{
-	if (c == 'S')
-	{
-		data->player->dir_x = 0;
-		data->player->dir_y = 1;
-		data->player->plane_x = -0.66;
-		data->player->plane_y = 0;
-	}
-	else if ( c == 'N')
-	{
-		data->player->dir_x = 0;
-		data->player->dir_y = -1;
-		data->player->plane_x = 0.66;
-		data->player->plane_y = 0;
-	}
-	else if ( c == 'E')
-	{
-		data->player->dir_x = 1;
-		data->player->dir_y = 0;
-		data->player->plane_x = 0;
-		data->player->plane_y = 0.66;
-	}
-	else if (c == 'W')
-	{
-		data->player->dir_x = -1;
-		data->player->dir_y = 0;
-		data->player->plane_x = 0;
-		data->player->plane_y = -0.66;
-	}
-}
-
-void	find_player_start(t_data *data)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (data->map[y])
-	{
-		while (data->map[y][x])
-		{
-			if (is_player(data->map[y][x]))
-			{
-				dir_player(data, data->map[y][x]);
-				data->player->pos_x = x + 0.5;
-				data->player->pos_y = y + 0.5;
-			}
-			x++;
-		}
-		y++;
-		x = 0;
-	}
-}
-
-void	init_time(t_bigben *bigben)
-{
-	bigben->old_time = 0;
-	bigben->time = 0;
-}
-
-// int main(int argc, char **argv)
+// void	dir_player(t_data *data, char c)
 // {
-// 	t_mlx_win	win;
-// 	t_player	player;
-// 	t_data		data;
-// 	t_param		param;
-// 	t_bigben	tardis;
+// 	if (c == 'S')
+// 	{
+// 		data->player->dir_x = 0;
+// 		data->player->dir_y = 1;
+// 		data->player->plane_x = -0.66;
+// 		data->player->plane_y = 0;
+// 	}
+// 	else if ( c == 'N')
+// 	{
+// 		data->player->dir_x = 0;
+// 		data->player->dir_y = -1;
+// 		data->player->plane_x = 0.66;
+// 		data->player->plane_y = 0;
+// 	}
+// 	else if ( c == 'E')
+// 	{
+// 		data->player->dir_x = 1;
+// 		data->player->dir_y = 0;
+// 		data->player->plane_x = 0;
+// 		data->player->plane_y = 0.66;
+// 	}
+// 	else if (c == 'W')
+// 	{
+// 		data->player->dir_x = -1;
+// 		data->player->dir_y = 0;
+// 		data->player->plane_x = 0;
+// 		data->player->plane_y = -0.66;
+// 	}
+// }
 
-// 	data.map = NULL;
-// 	if (!guardian(&data, &param, argc, argv))
-// 		return (1);
-// //initialisation
-// 	data.img.img_ptr = NULL;
-// 	data.win = &win;
-// 	data.player = &player;
-// 	data.bigben = &tardis;
-// 	data.param = &param;
-// 	data.win->mlx_ptr = mlx_init();
-// 	if (data.win->mlx_ptr == NULL)
-// 		return (1);
-// 	data.win->mlx_win = mlx_new_window(data.win->mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub2D");
-// 	if (data.win->mlx_win == NULL)
-// 		return (1);
-// 	// 	data.player->move_speed = 1;
+// void	find_player_start(t_data *data)
+// {
+// 	int	x;
+// 	int	y;
 
-// 	find_player_start(&data);
-// 	init_time(data.bigben);
-// 	init_image(&data);
-// 	fill_texture_tab(&data);
-// 	raycasting_loop(&data);
-// 	mlx_hook(data.win->mlx_win, KeyPress, KeyPressMask, &handle_key, &data);
-// 	mlx_loop(data.win->mlx_ptr);
+// 	x = 0;
+// 	y = 0;
+// 	while (data->map[y])
+// 	{
+// 		while (data->map[y][x])
+// 		{
+// 			if (is_player(data->map[y][x]))
+// 			{
+// 				dir_player(data, data->map[y][x]);
+// 				data->player->pos_x = x + 0.5;
+// 				data->player->pos_y = y + 0.5;
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 		x = 0;
+// 	}
+// }
 
-// 	//raycasting
-
-// 	return (0);
+// void	init_time(t_bigben *bigben)
+// {
+// 	bigben->old_time = 0;
+// 	bigben->time = 0;
 // }

@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:07:54 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/04 14:08:43 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:00:58 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int main(int argc, char **argv)
 	data.player = &player;
 	data.bigben = &tardis;
 	data.param = &param;
+	data.fps_on_window = 0;
 	data.win->mlx_ptr = mlx_init();
 	if (data.win->mlx_ptr == NULL)
 		return (1);
 	data.win->mlx_win = mlx_new_window(data.win->mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub2D");
 	if (data.win->mlx_win == NULL)
 		return (1);
-	// 	data.player->move_speed = 1;
 
 	find_player_start(&data);
 	init_time(data.bigben);

@@ -5,11 +5,12 @@ NAME = cub3D
 PARS = parsing
 OBJDIR = obj
 LIBFTDIR = libft
-
+MLX_DIR = minilibx-linux
 # Sources
 SRC := src/graphic/main3d.c \
 		src/main/main.c\
 		src/graphic/render.c\
+		src/graphic/init_raycast.c\
 		src/graphic/raycasting.c\
 		src/$(PARS)/get_infile/infile_to_tab.c \
 		src/$(PARS)/map_to_rectangle.c \
@@ -35,16 +36,16 @@ CFLAGS = -g -Wall -Wextra -Werror -I$(LIBFTDIR)
 
 LIBFT = $(LIBFTDIR)/libft.a
 MLX_FLAGS = -Lmlx -lmlx -Lminilibx-linux -lXext -lX11	#|
-MLX_LIB = minilibx-linux/libmlx_Linux.a				#|<----pour activer la mlx
+MLX_LIB = $(MLX_DIR)/libmlx_Linux.a				#|<----pour activer la mlx
 
 # Couleurs
 GREEN =\033[0;32m
 RED =\033[0;31m
 END =\033[0m
 
-all: $(NAME)
+all: $(LIBFT) $(MLX_LIB) $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ)
+$(NAME): $(OBJ) $(LIBFT) $(MLX_LIB)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) -lX11 -lXext -lm -o $(NAME)
 	@echo "$(GREEN) Cub3D is ready to play $(END)"
 
@@ -60,12 +61,16 @@ $(LIBFT):
 	@$(MAKE) --no-print-directory -C $(LIBFTDIR)
 	@echo "Libft successfully created"
 
+$(MLX_LIB):
+	@$(MAKE) --no-print-directory -C minilibx-linux
+	@echo "minilibx successfully created"
+
 clean:
-	@$(MAKE) clean --no-print-directory -C $(LIBFTDIR)
 	@rm -rf $(OBJDIR)
 
 fclean: clean
 	@$(MAKE) fclean --no-print-directory -C $(LIBFTDIR)
+	@$(MAKE) --no-print-directory $(MLX_DIR) clean
 	@rm -f $(NAME)
 
 re: fclean all

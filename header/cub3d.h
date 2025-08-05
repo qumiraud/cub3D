@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:15:56 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/04 18:13:23 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:20:38 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #define TEXHEIGHT 64
 
 #define WHITE 0xFFFFFF
-#define BLACK 0x000000
+#define BLACK 0x00000000
 #define GREEN 0x00FF00
 
 
@@ -209,6 +209,7 @@ typedef struct s_data
 	int		bpp;
 	int		size_line;
 	int		endian;
+	int		fps_on_window;
 
 	t_bigben	*bigben;
 	t_mlx_win	*win;
@@ -233,8 +234,9 @@ typedef struct s_data
 int		main(int argc, char **argv);
 void	raycasting_loop(t_data *data);
 void	copy_buffer_to_image(t_data *data, __uint32_t buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
-void	ft_init_ray_struct(t_ray *raycasting);
-void	render_map(t_data *data);
+void	init_ray_struct(t_ray *raycasting);
+// void	dir_player(t_data *data, char c);
+// void	render_map(t_data *data);
 void	find_player_start(t_data *data);
 void	dir_player(t_data *data, char c);
 void	init_image(t_data *data);
