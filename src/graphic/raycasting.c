@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:12:05 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/05 15:39:16 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:46:23 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,36 @@ void	display_fps_on_screen(t_data *data, unsigned int background_color)
 			x = 10;
 			while (x < 70)
 			{
-				mlx_pixel_put(data->win->mlx_ptr, data->win->mlx_win, x, y, (background_color >> 1) & 8355711);
+				mlx_pixel_put(data->win->mlx_ptr, data->win->mlx_win,
+					x, y, (background_color >> 1) & 8355711);
 				x++;
 			}
 			y++;
 		}
-		mlx_string_put(data->win->mlx_ptr, data->win->mlx_win, 15, 19, WHITE,"FPS : ");
-		mlx_string_put(data->win->mlx_ptr, data->win->mlx_win, 50, 19, WHITE, ft_itoa((int)(round(1 / data->bigben->frame_time))));
+		mlx_string_put(data->win->mlx_ptr, data->win->mlx_win, 15, 19,
+			WHITE, "FPS : ");
+		mlx_string_put(data->win->mlx_ptr, data->win->mlx_win, 50, 19,
+			WHITE, ft_itoa((int)(round(1 / data->bigben->frame_time))));
 	}
 }
 
 void	fps_controler(t_data *data)
 {
-	// int	x;
-	int	y;
-	int	line_length;
-	char    *addr;
+	int				y;
+	int				line_length;
+	char			*addr;
 	unsigned int	background_color;
 
 	y = 5;
 	line_length = (int)(SCREEN_WIDTH * (data->bpp * 0.125));
-	addr = mlx_get_data_addr(data->img_ptr, &data->bpp, &line_length, &data->endian);
-	background_color = *(unsigned int *)(addr + y * line_length + 40 * (data->bpp / 8));
+	addr = mlx_get_data_addr(data->img_ptr, &data->bpp,
+			&line_length, &data->endian);
+	background_color = *(unsigned int *)(addr + y * line_length
+			+ 40 * (data->bpp / 8));
 	data->bigben->old_time = data->bigben->time;
 	data->bigben->time = clock();
-	data->bigben->frame_time = (data->bigben->time - data->bigben->old_time) / CLOCKS_PER_SEC;
+	data->bigben->frame_time = (data->bigben->time - data->bigben->old_time)
+		/ CLOCKS_PER_SEC;
 	data->player->move_speed = data->bigben->frame_time * 16.0;
 	printf ("FPS : %.2f\n", 1 / data->bigben->frame_time);
 	data->player->rot_speed = data->bigben->frame_time * 8.0;
@@ -80,6 +85,7 @@ void	check_hit(t_data *data)
 	}
 	return ;
 }
+
 void	step_and_sidedist_calcul(t_data *data)
 {
 	if (RAY_DIR_X == 0)
@@ -152,7 +158,7 @@ void	perp_wall_dist_definition(t_data *data)
 void	put_texture_on_walls(t_data *data)
 {
 	Y = DRAW_START;
-	while(Y < DRAW_END)
+	while (Y < DRAW_END)
 	{
 		TEX_Y = (int)TEX_POS & (TEXHEIGHT - 1);
 		TEX_POS += STEP;
@@ -175,9 +181,10 @@ void	texture_pos_definition(t_data *data)
 	if (SIDE == 0 && RAY_DIR_X > 0)
 		TEX_X = TEXWIDTH - TEX_X - 1;
 	if (SIDE == 1 && RAY_DIR_Y < 0)
-		TEX_X = TEXWIDTH -TEX_X - 1;
+		TEX_X = TEXWIDTH - TEX_X - 1;
 	STEP = 1.0 * TEXHEIGHT / (double)LINE_HEIGHT;
-	TEX_POS = ((double)DRAW_START - SCREEN_HEIGHT * 0.5 + (double)LINE_HEIGHT * 0.5) * STEP;
+	TEX_POS = ((double)DRAW_START - SCREEN_HEIGHT * 0.5
+			+ (double)LINE_HEIGHT * 0.5) * STEP;
 }
 
 void	define_camx_raydir_and_map(t_data *data)
@@ -191,9 +198,8 @@ void	define_camx_raydir_and_map(t_data *data)
 
 void	raycasting_loop(t_data *data)
 {
-	// https://www.notion.so/Ray-Casting-220938a31f20806a8dd4c3dec8392e20?source=copy_link
 	t_ray	raycasting;
-
+	// https://www.notion.so/Ray-Casting-220938a31f20806a8dd4c3dec8392e20?source=copy_link
 	init_ray_struct(&raycasting);
 	data->ray = &raycasting;
 	clean_window(data);

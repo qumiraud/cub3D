@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_raycast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 10:31:22 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/05 11:24:53 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:46:05 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 void	init_player_vector(t_data *data, double valuedir_xyplane_xy[4])
 {
-		data->player->dir_x = (int)valuedir_xyplane_xy[0];
-		data->player->dir_y = (int)valuedir_xyplane_xy[1];
-		data->player->plane_x = valuedir_xyplane_xy[2];
-		data->player->plane_y = valuedir_xyplane_xy[3];
+	data->player->dir_x = (int)valuedir_xyplane_xy[0];
+	data->player->dir_y = (int)valuedir_xyplane_xy[1];
+	data->player->plane_x = valuedir_xyplane_xy[2];
+	data->player->plane_y = valuedir_xyplane_xy[3];
 }
+
 void	init_valuedir_xyplane_xy(double tab[4][4])
 {
 	tab[0][0] = 0;
@@ -39,6 +40,7 @@ void	init_valuedir_xyplane_xy(double tab[4][4])
 	tab[3][2] = 0;
 	tab[3][3] = -0.66;
 }
+
 void	dir_player(t_data *data, char c)
 {
 	double	valuedir_xyplane_xy[4][4];
@@ -46,9 +48,9 @@ void	dir_player(t_data *data, char c)
 	init_valuedir_xyplane_xy(valuedir_xyplane_xy);
 	if (c == 'S')
 		init_player_vector(data, valuedir_xyplane_xy[0]);
-	else if ( c == 'N')
+	else if (c == 'N')
 		init_player_vector(data, valuedir_xyplane_xy[1]);
-	else if ( c == 'E')
+	else if (c == 'E')
 		init_player_vector(data, valuedir_xyplane_xy[2]);
 	else if (c == 'W')
 		init_player_vector(data, valuedir_xyplane_xy[3]);
