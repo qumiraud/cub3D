@@ -1,106 +1,118 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_to_rectangle.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/30 16:41:54 by lguiet            #+#    #+#             */
+/*   Updated: 2025/08/19 15:35:03 by pjurdana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../header/parsing.h"
 
-int get_height(char **map)
+int	get_biggest_line(char **map)
 {
-    int i;
-    i = 0;
-    while (map && map[i])
-        i++;
-    return(i);
+	size_t	max;
+	int		i;
+
+	max = 0;
+	i = 0;
+	while (map && map[i])
+	{
+		if (ft_strlen(map[i]) > max)
+		{
+			max = ft_strlen(map[i]);
+		}
+		i++;
+	}
+	return (max);
 }
 
-
-int get_biggest_line(char **map)
+void	rm_newline(char **map)
 {
-    size_t max;
-    max = 0;
-    int i;
-    i = 0;
-    while (map && map[i])
-    {
-        if (ft_strlen(map[i]) > max)
-        {
-            max = ft_strlen(map[i]);
-        }
-        i++;
-    }
-    return (max);
+	size_t	len;
+	int		i;
+
+	i = 0;
+	while (map && map[i])
+	{
+		len = ft_strlen(map[i]);
+		if (len > 0 && map[i][len - 1] == '\n')
+			map[i][len - 1] = '\0';
+		i++;
+	}
 }
 
-void rm_newline(char **map)
+void	filling_holes(int i, char **map, char **new_map, int max_width)
 {
-    size_t len;
-    int i;
-    i = 0;
-    while (map && map[i])
-    {
-        len = ft_strlen(map[i]);
-        if (len > 0 && map[i][len - 1] == '\n')
-            map[i][len - 1] = '\0';
-        i++;
-    }
+	int	k;
+	int	j;
+
+	j = ft_strlen(map[i]);
+	k = 0;
+	while (new_map[i] && new_map[i][k])
+	{
+		if (new_map[i][k] == ' ')
+			new_map[i][k] = HOLE;
+		k++;
+	}
+	while (j < max_width)
+	{
+		new_map[i][j] = HOLE;
+		j++;
+	}
+	new_map[i][max_width] = '\n';
+	new_map[i][max_width + 1] = '\0';
 }
 
-
-char **map_to_rectangle(char **map)
+int	alloc_map(int *height, int *max_width, char ***new_map, char **map)
 {
-    int max_width;
-    int height;
-    int i;
-    int j;
-    i = 0;
-    j = 0;
-    int k =0;
-    char    **new_map;
+	rm_newline(map);
+	*max_width = get_biggest_line(map);
+	if (*max_width <= 1)
+	{
+		write (2, "map should have more than one column\n", 38);
+		free_map(map);
+		return (0);
+	}
+	*height = get_height(map);
+	*new_map = ft_calloc(((*height) + 1), sizeof(char *));
+	if (!(*new_map))
+	{
+		write(2, "Error\nallocating map\n", 22);
+		free_map(map);
+		return (0);
+	}
+	return (1);
+}
 
-    rm_newline(map);
-    max_width = get_biggest_line(map);
-    if (max_width <= 1)
-    {
-        write (2, "map should have more than one column\n", 38);
-        free_map(map);
-        return NULL;
-    }
-    height = get_height(map);
+char	**map_to_rectangle(char **map)
+{
+	char	**new_map;
+	int		max_width;
+	int		height;
+	int		i;
 
-    new_map = ft_calloc((height + 1), sizeof(char *));
-    if (!new_map)
-    {
-        write(2, "error allocating map\n", 22);
-        free_map(map);
-        return (NULL);
-    }
-    while(i < height)
-    {
-        new_map[i] = ft_calloc(max_width + 2, sizeof(char));
-        if (!new_map[i])
-        {
-            write(2, "error allocating line\n", 23);
-            free_map(new_map);
-            free_map(map);
-            return (NULL);
-        }
-        ft_strlcpy(new_map[i], map[i], ft_strlen(map[i]) + 1);
-        j = ft_strlen(map[i]);
-        //checking for space and replacing with HOLE
-        k = 0;
-        while(new_map[i] && new_map[i][k])
-        {
-            if (new_map[i][k] == ' ')
-                new_map[i][k] = HOLE;
-            k++;
-        }
-        //Filling shorter lines with HOLE
-        while(j < max_width)
-        {
-            new_map[i][j] = HOLE;
-            j++;
-        }
-        new_map[i][max_width] = '\n';
-        new_map[i][max_width + 1] = '\0';
-        i++;
-    }
-    new_map[height] = NULL;
-    free_map(map);
-    return (new_map);
+	i = 0;
+	if (!alloc_map(&height, &max_width, &new_map, map))
+		return (NULL);
+	while (i < height)
+	{
+		new_map[i] = ft_calloc(max_width + 2, sizeof(char));
+		if (!new_map[i])
+		{
+			write(2, "Error\nallocating line\n", 23);
+			free_map(new_map);
+			free_map(map);
+			return (NULL);
+		}
+		ft_strlcpy(new_map[i], map[i], ft_strlen(map[i]) + 1);
+		filling_holes(i, map, new_map, max_width);
+		i++;
+	}
+	new_map[height] = NULL;
+	free_map(map);
+	return (new_map);
 }

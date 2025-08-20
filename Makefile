@@ -7,12 +7,16 @@ OBJDIR = obj
 LIBFTDIR = libft
 MLX_DIR = minilibx-linux
 # Sources
-SRC := src/graphic/main3d.c \
+SRC := src/graphic/file_img.c \
 		src/main/main.c\
 		src/graphic/render.c\
 		src/graphic/init_raycast.c\
+		src/graphic/init_raycast_2.c\
 		src/graphic/raycasting.c\
+		src/graphic/raycasting_2.c\
+		src/graphic/raycasting_3.c\
 		src/$(PARS)/get_infile/infile_to_tab.c \
+		src/$(PARS)/get_infile/utils_infile.c \
 		src/$(PARS)/map_to_rectangle.c \
 		src/$(PARS)/utils/free_stuff.c \
 		src/$(PARS)/utils/map_utils.c \
@@ -23,7 +27,6 @@ SRC := src/graphic/main3d.c \
 		src/$(PARS)/check_params/check_textures.c \
 		src/$(PARS)/get_params/params_utils.c \
 		src/input/input.c\
-		src/main_test.c \
 
 # Objets : transforme chaque .c en obj/chemin/vers/fichier.o
 OBJ := $(SRC:%.c=$(OBJDIR)/%.o)

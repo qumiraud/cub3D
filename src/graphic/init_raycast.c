@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 10:31:22 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/19 14:46:05 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:22:39 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void	init_player_vector(t_data *data, double valuedir_xyplane_xy[4])
 {
+	//pourquoi les 2 1er sont cast et pas les deux autres ?
 	data->player->dir_x = (int)valuedir_xyplane_xy[0];
 	data->player->dir_y = (int)valuedir_xyplane_xy[1];
 	data->player->plane_x = valuedir_xyplane_xy[2];
@@ -23,6 +24,7 @@ void	init_player_vector(t_data *data, double valuedir_xyplane_xy[4])
 
 void	init_valuedir_xyplane_xy(double tab[4][4])
 {
+	//need explication
 	tab[0][0] = 0;
 	tab[0][1] = 1;
 	tab[0][2] = -0.66;
@@ -84,39 +86,4 @@ void	init_time(t_bigben *bigben)
 {
 	bigben->old_time = 0;
 	bigben->time = 0;
-}
-
-void	init_texture(t_ray *raycasting)
-{
-	raycasting->tex_num = 0;
-	raycasting->tex_x = 0;
-	raycasting->tex_y = 0;
-	raycasting->tex_pos = 0;
-	raycasting->color = 0;
-}
-
-void	init_ray_struct(t_ray *raycasting)
-{
-	raycasting->x = 0;
-	raycasting->y = 0;
-	raycasting->map_x = 0;
-	raycasting->map_y = 0;
-	raycasting->step_x = 0;
-	raycasting->step_y = 0;
-	raycasting->hit = 0;
-	raycasting->side = 0;
-	raycasting->line_height = 0;
-	raycasting->draw_start = 0;
-	raycasting->draw_end = 0;
-	raycasting->side_dist_x = 0;
-	raycasting->side_dist_y = 0;
-	raycasting->delta_dist_x = 0;
-	raycasting->delta_dist_y = 0;
-	raycasting->perp_wall_dist = 0;
-	raycasting->camera_x = 0;
-	raycasting->ray_dir_x = 0;
-	raycasting->ray_dir_y = 0;
-	raycasting->wall_x = 0;
-	raycasting->step = 0;
-	init_texture(raycasting);
 }

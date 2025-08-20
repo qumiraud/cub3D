@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:15:56 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/05 13:20:38 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/08/20 10:51:17 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,11 +193,11 @@ typedef struct	s_ray
 
 typedef struct s_data
 {
-	char		**map;
-	char		*NO;
-	char		*SO;
-	char		*WE;
-	char		*EA;
+	char	**map;
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
 
 	int			F[3];
 	int			C[3];
@@ -244,6 +244,18 @@ void	fill_texture_tab(t_data *data);
 void	clean_window(t_data *data);
 void	copy_buffer_to_image(t_data *data, __uint32_t buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
 void	init_time(t_bigben *bigben);
+
+
+
+
+void	step_and_sidedist_calcul(t_data *data);
+void	check_hit(t_data *data);
+void	draw_startend_definition(t_data *data);
+void	texture_attribution(t_data *data);
+void	fps_controler(t_data *data);
+
+
+
 
 
 //########### INPUT_DIR ##############//

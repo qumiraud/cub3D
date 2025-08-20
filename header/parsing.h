@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 11:37:25 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/07/23 16:25:08 by qumiraud         ###   ########.fr       */
+/*   Created: 2025/06/19 11:26:23 by lguiet            #+#    #+#             */
+/*   Updated: 2025/08/20 10:36:53 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,90 +16,108 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-#include "../libft/libft.h"
-#include "cub3d.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
+# include "../libft/libft.h"
+// # include "cub3d.h"
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
 
-//define the value used to make the map rectangle
+// define the value used to make the map rectangle
 # ifndef HOLE
 #  define HOLE 'Q'
 
-struct s_data;
+struct	s_data;
 
 typedef struct s_param
 {
-    int    NO_flag;
-    int    SO_flag;
-    int    WE_flag;
-    int    EA_flag;
+	int		no_flag;
+	int		so_flag;
+	int		we_flag;
+	int		ea_flag;
 
-    int    F_flag;
-    int    C_flag;
+	int		f_flag;
+	int		c_flag;
 
-    int    NO_index;
-    int    SO_index;
-    int    WE_index;
-    int    EA_index;
+	int		no_index;
+	int		so_index;
+	int		we_index;
+	int		ea_index;
 
-    int    F_index;
-    int    C_index;
+	int		f_index;
+	int		c_index;
 
-    char	*no_path;
+	char	*no_path;
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
 
-    char	*f_color_str;
+	char	*f_color_str;
 	char	*c_color_str;
 
-    int     map_index;
+	int		map_index;
 
-}   t_param;
+}			t_param;
 
-// GUARDIAN
-int guardian(t_data *data, t_param *param, int argc, char **argv);
+//----[GET_PARAMS/extract_params]-----
+int			check_param(char **infile, t_param *param, int map_index);
+int			is_color(char *color_str, int color_int[3]);
+int			check_all_textures(struct s_data *data);
+//-----get_params/params_utils---
+void		print_param(t_param param);
+void		init_params_flags(t_param *param);
+int			tab_size(char **tab, int map_index);
+int			has_all_params(t_param param);
+int			map_is_last(t_param param, int map_index);
 
-
-//get_params/extract_params
-int     check_param(char **infile, t_param *param, int map_index);
-int     is_color(char *color_str, int color_int[3]);
-int     check_all_textures(t_data *data);
-
-//get_infile/infile_to_tab : get the whole infile (map.cub) into a char **
-char    **get_infile(char *filename, t_param *param);
-
-
-//skip the textures lines and then copy into a **tab starting from the map index(where the map was found)
-char	**extract_map(char **infile, int map_index);
-
-//make the original map rectangle
-char    **map_to_rectangle(char **map);
-
-int     has_valid_char(char **map);
-int     check_holes(char **map);
-
-//valid_chars
-void    map_is_valid(char ***map_rect, char *argv, t_param *param);
+//-----[GET_INFILE]-----
+char		**get_infile(char *filename, t_param *param);
+int			is_map_line(char *line);
+//-----get_infile/utils----
 
 
-//free_stuff
-void    free_map(char **map);
-void    free_param(t_param *param);
 
-//utils
-void    print_map(char **map);
-int     valid_char(char *line);
-int     is_player(char c);
-//int	    ft_strcmp(const char *s1, const char *s2);
-char    *skip_spaces(char *line);
 
-//params_utils in get_params
-void    print_param(t_param param);
-void    init_params_flags(t_param *param);
-int     tab_size(char **tab, int map_index);
 
+
+// int guardian(t_data *data, t_param *param, int argc, char **argv);
+
+
+
+
+
+
+
+int			valid_name(char *name);
+void		find_map(int *map_found, char *line, t_param *param, int count);
+void		free_line_close_fd(char *line, int *fd);
+int			open_fd(char *filename, int *fd);
+int			ft_strspn(const char *s, const char *accept);
+
+// skip the textures lines and then copy into 
+// a **tab starting from the map index(where the map was found)
+char		**extract_map(char **infile, int map_index);
+int			one_player(char **map);
+int			has_valid_char(char **map);
+
+// make the original map rectangle
+char		**map_to_rectangle(char **map);
+int			has_valid_char(char **map);
+int			check_holes(char **map);
+
+// valid_chars
+void		map_is_valid(char ***map_rect, char *argv, t_param *param);
+
+// free_stuff
+void		free_map(char **map);
+void		free_param(t_param *param);
+
+// utils
+void		print_map(char **map);
+int			valid_char(char *line);
+int			is_player(char c);
+int			get_height(char **map);
+// int		 ft_strcmp(const char *s1, const char *s2);
+char		*skip_spaces(char *line);
 
 # endif
 #endif

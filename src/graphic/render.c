@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:07:04 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/19 13:48:25 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/08/20 10:52:03 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,4 @@ void	clean_window(t_data *data)
 		}
 		y++;
 	}
-// ui
 }
-
-/*
-if (y < SCREEN_HEIGHT * 0.5)
-	BUFFER[y][x] = 0x333366; // couleur du ciel
-else
-	BUFFER[y][x] = 0x222222; // couleur du sol
-*/

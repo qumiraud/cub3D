@@ -6,32 +6,38 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/19 14:45:18 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:00:24 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/parsing.h"
 #include "../../header/cub3d.h"
 
-void	fill_texture_tab(t_data *data)
+void	file_to_image(t_data *data)
 {
 	int	width;
 	int	height;
+
+	width = TEXWIDTH;
+	height = TEXHEIGHT;
+	data->texture_img[0] = mlx_xpm_file_to_image(data->win->mlx_ptr,
+			data->no_path, &width, &height);
+	data->texture_img[1] = mlx_xpm_file_to_image(data->win->mlx_ptr,
+			data->so_path, &width, &height);
+	data->texture_img[2] = mlx_xpm_file_to_image(data->win->mlx_ptr,
+			data->ea_path, &width, &height);
+	data->texture_img[3] = mlx_xpm_file_to_image(data->win->mlx_ptr,
+			data->we_path, &width, &height);
+}
+
+void	fill_texture_tab(t_data *data)
+{
 	int	size_line;
 	int	endian;
 	int	i;
 
 	i = 0;
-	width = TEXWIDTH;
-	height = TEXHEIGHT;
-	data->texture_img[0] = mlx_xpm_file_to_image(data->win->mlx_ptr,
-			data->NO, &width, &height);
-	data->texture_img[1] = mlx_xpm_file_to_image(data->win->mlx_ptr,
-			data->SO, &width, &height);
-	data->texture_img[2] = mlx_xpm_file_to_image(data->win->mlx_ptr,
-			data->EA, &width, &height);
-	data->texture_img[3] = mlx_xpm_file_to_image(data->win->mlx_ptr,
-			data->WE, &width, &height);
+	file_to_image(data);
 	while (i < 4)
 	{
 		if (!data->texture_img[i])
@@ -97,65 +103,3 @@ void	init_image(t_data *data)
 		exit(1);
 	}
 }
-
-// void	dir_player(t_data *data, char c)
-// {
-// 	if (c == 'S')
-// 	{
-// 		data->player->dir_x = 0;
-// 		data->player->dir_y = 1;
-// 		data->player->plane_x = -0.66;
-// 		data->player->plane_y = 0;
-// 	}
-// 	else if ( c == 'N')
-// 	{
-// 		data->player->dir_x = 0;
-// 		data->player->dir_y = -1;
-// 		data->player->plane_x = 0.66;
-// 		data->player->plane_y = 0;
-// 	}
-// 	else if ( c == 'E')
-// 	{
-// 		data->player->dir_x = 1;
-// 		data->player->dir_y = 0;
-// 		data->player->plane_x = 0;
-// 		data->player->plane_y = 0.66;
-// 	}
-// 	else if (c == 'W')
-// 	{
-// 		data->player->dir_x = -1;
-// 		data->player->dir_y = 0;
-// 		data->player->plane_x = 0;
-// 		data->player->plane_y = -0.66;
-// 	}
-// }
-
-// void	find_player_start(t_data *data)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = 0;
-// 	y = 0;
-// 	while (data->map[y])
-// 	{
-// 		while (data->map[y][x])
-// 		{
-// 			if (is_player(data->map[y][x]))
-// 			{
-// 				dir_player(data, data->map[y][x]);
-// 				data->player->pos_x = x + 0.5;
-// 				data->player->pos_y = y + 0.5;
-// 			}
-// 			x++;
-// 		}
-// 		y++;
-// 		x = 0;
-// 	}
-// }
-
-// void	init_time(t_bigben *bigben)
-// {
-// 	bigben->old_time = 0;
-// 	bigben->time = 0;
-// }
