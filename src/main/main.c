@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:07:54 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/20 11:06:29 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/02 14:02:01 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ref_main(t_data data)
 	init_image(&data);
 	fill_texture_tab(&data);
 	raycasting_loop(&data);
+	fps_controler(&data);
 	mlx_hook(data.win->mlx_win, KeyPress, KeyPressMask, &handle_key, &data);
 	mlx_loop(data.win->mlx_ptr);
 }

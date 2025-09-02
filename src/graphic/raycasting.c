@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:12:05 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/20 10:52:23 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/02 14:37:13 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 void	display_fps_on_screen(t_data *data, unsigned int background_color)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	char	*ascii;
 
 	y = 5;
 	if (data->fps_on_window)
@@ -34,8 +35,10 @@ void	display_fps_on_screen(t_data *data, unsigned int background_color)
 		}
 		mlx_string_put(data->win->mlx_ptr, data->win->mlx_win, 15, 19,
 			WHITE, "FPS : ");
+		ascii = ft_itoa((int)(round(1 / data->bigben->frame_time)));
 		mlx_string_put(data->win->mlx_ptr, data->win->mlx_win, 50, 19,
-			WHITE, ft_itoa((int)(round(1 / data->bigben->frame_time))));
+			WHITE, ascii);
+		free(ascii);
 	}
 }
 
@@ -57,7 +60,7 @@ void	fps_controler(t_data *data)
 	data->bigben->frame_time = (data->bigben->time - data->bigben->old_time)
 		/ CLOCKS_PER_SEC;
 	data->player->move_speed = data->bigben->frame_time * 16.0;
-	printf ("FPS : %.2f\n", 1 / data->bigben->frame_time);
+	// printf ("FPS : %.2f\n", 1 / data->bigben->frame_time);
 	data->player->rot_speed = data->bigben->frame_time * 8.0;
 	display_fps_on_screen(data, background_color);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:47:31 by pjurdana          #+#    #+#             */
-/*   Updated: 2025/08/20 10:56:37 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/02 13:52:22 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	raycasting_loop(t_data *data)
 
 	init_ray_struct(&raycasting);
 	data->ray = &raycasting;
+	// fps_controler(data);
 	clean_window(data);
 	while (X < SCREEN_WIDTH)
 	{
@@ -84,4 +85,5 @@ void	raycasting_loop(t_data *data)
 	}
 	copy_buffer_to_image(data, BUFFER);
 	fps_controler(data);
+	// clean_window(data);
 }
