@@ -27,6 +27,7 @@ SRC := src/graphic/file_img.c \
 		src/$(PARS)/check_params/check_textures.c \
 		src/$(PARS)/get_params/params_utils.c \
 		src/input/input.c\
+		src/input/directions.c\
 
 # Objets : transforme chaque .c en obj/chemin/vers/fichier.o
 OBJ := $(SRC:%.c=$(OBJDIR)/%.o)
@@ -35,7 +36,7 @@ TOTAL := $(words $(SRC))
 COUNT = 0
 
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -I$(LIBFTDIR)
+CFLAGS = -g -Wall -Wextra -Werror -Ofast -I$(LIBFTDIR)
 
 LIBFT = $(LIBFTDIR)/libft.a
 MLX_FLAGS = -Lmlx -lmlx -Lminilibx-linux -lXext -lX11	#|

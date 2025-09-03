@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/02 13:34:22 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/03 11:04:35 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	copy_buffer_to_image(t_data *data,
 	int	y;
 
 	x = 0;
-	// mlx_clear_window(data->win->mlx_ptr, data->win->mlx_win);
 	while (x < SCREEN_WIDTH)
 	{
 		y = 0;

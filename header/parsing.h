@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:26:23 by lguiet            #+#    #+#             */
-/*   Updated: 2025/08/20 10:36:53 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/03 11:18:31 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,15 @@ int			map_is_last(t_param param, int map_index);
 //-----[GET_INFILE]-----
 char		**get_infile(char *filename, t_param *param);
 int			is_map_line(char *line);
+
 //-----get_infile/utils----
-
-
-
-
-
-
-// int guardian(t_data *data, t_param *param, int argc, char **argv);
-
-
-
-
-
-
-
 int			valid_name(char *name);
 void		find_map(int *map_found, char *line, t_param *param, int count);
 void		free_line_close_fd(char *line, int *fd);
 int			open_fd(char *filename, int *fd);
 int			ft_strspn(const char *s, const char *accept);
 
-// skip the textures lines and then copy into 
+// skip the textures lines and then copy into
 // a **tab starting from the map index(where the map was found)
 char		**extract_map(char **infile, int map_index);
 int			one_player(char **map);

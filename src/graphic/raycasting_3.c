@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:48:27 by pjurdana          #+#    #+#             */
-/*   Updated: 2025/08/20 13:29:45 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/03 11:07:22 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	check_hit(t_data *data)
 		}
 		if (MAP[MAP_Y][MAP_X] == '1')
 		{
-			// printf ("hallo\n\n\n");
 			HIT = 1;
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:39:07 by lguiet            #+#    #+#             */
-/*   Updated: 2025/08/20 11:11:23 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/03 11:08:46 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,8 @@ int	has_valid_char(char **map)
 	return (1);
 }
 
-//extract de map from **infile, removing all parameters lines
-//return the new map
 char	**extract_map(char **infile, int map_index)
 {
-	// see what we do with the the com like up there
 	int		height;
 	int		i;
 	char	**map_lines;

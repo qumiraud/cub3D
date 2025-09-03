@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_raycast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 10:31:22 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/20 13:22:39 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/03 11:06:30 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void	init_player_vector(t_data *data, double valuedir_xyplane_xy[4])
 {
-	//pourquoi les 2 1er sont cast et pas les deux autres ?
 	data->player->dir_x = (int)valuedir_xyplane_xy[0];
 	data->player->dir_y = (int)valuedir_xyplane_xy[1];
 	data->player->plane_x = valuedir_xyplane_xy[2];
@@ -24,7 +23,6 @@ void	init_player_vector(t_data *data, double valuedir_xyplane_xy[4])
 
 void	init_valuedir_xyplane_xy(double tab[4][4])
 {
-	//need explication
 	tab[0][0] = 0;
 	tab[0][1] = 1;
 	tab[0][2] = -0.66;

@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:07:54 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/02 14:02:01 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/03 11:19:50 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	guardian(t_data *data, t_param *param, int argc, char **argv)
 		return (0);
 	data->map = map_rect;
 	init_textures(data, *param);
-	if (!is_color(param->f_color_str, data->F)
-		|| !is_color(param->c_color_str, data->C)
+	if (!is_color(param->f_color_str, data->f)
+		|| !is_color(param->c_color_str, data->c)
 		|| !check_all_textures(data))
 	{
 		free_map(data->map);
