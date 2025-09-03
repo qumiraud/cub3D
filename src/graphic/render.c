@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:07:04 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/08/20 10:52:03 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:19:44 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	clean_window(t_data *data)
 		while (x < SCREEN_WIDTH)
 		{
 			if (y < SCREEN_HEIGHT * 0.5)
-				BUFFER[y][x] = 0x333366;
+				data->ray->buffer[y][x] = 0x333366;
 			else
-				BUFFER[y][x] = 0x222222;
+				data->ray->buffer[y][x] = 0x222222;
 			x++;
 		}
 		y++;

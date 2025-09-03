@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:12:05 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/03 11:06:50 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:50:10 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,42 @@ void	fps_controler(t_data *data)
 	data->player->move_speed = data->bigben->frame_time * 32.0;
 	data->player->rot_speed = data->bigben->frame_time * 16.0;
 	display_fps_on_screen(data, background_color);
+}
+
+void	ref_if_sasc(t_data *data)
+{
+	data->ray->step_y = -1;
+	data->ray->side_dist_y = (data->player->pos_y - data->ray->map_y)
+		* data->ray->delta_dist_y;
+}
+
+void	ref_else_sasc(t_data *data)
+{
+	data->ray->step_y = 1;
+	data->ray->side_dist_y = (data->ray->map_y + 1.0
+			- data->player->pos_y) * data->ray->delta_dist_y;
+}
+
+void	step_and_sidedist_calcul(t_data *data)
+{
+	if (data->ray->ray_dir_x == 0)
+		data->ray->delta_dist_x = 1e30;
+	else
+		data->ray->delta_dist_x = fabs(1 / data->ray->ray_dir_x);
+	if (data->ray->ray_dir_y == 0)
+		data->ray->delta_dist_y = 1e30;
+	else
+		data->ray->delta_dist_y = fabs(1 / data->ray->ray_dir_y);
+	if (data->ray->ray_dir_x < 0)
+		ray_dir_x(data);
+	else
+	{
+		data->ray->step_x = 1;
+		data->ray->side_dist_x = (data->ray->map_x + 1.0 - data->player->pos_x)
+			* data->ray->delta_dist_x;
+	}
+	if (data->ray->ray_dir_y < 0)
+		ref_if_sasc(data);
+	else
+		ref_else_sasc(data);
 }

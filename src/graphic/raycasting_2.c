@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:47:31 by pjurdana          #+#    #+#             */
-/*   Updated: 2025/09/03 11:07:11 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:49:28 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,51 +15,58 @@
 
 void	perp_wall_dist_definition(t_data *data)
 {
-	if (SIDE == 0)
-		PERP_WALL_DIST = (SIDE_DIST_X - DELTA_DIST_X);
+	if (data->ray->side == 0)
+		data->ray->perp_wall_dist = (data->ray->side_dist_x
+				- data->ray->delta_dist_x);
 	else
-		PERP_WALL_DIST = (SIDE_DIST_Y - DELTA_DIST_Y);
+		data->ray->perp_wall_dist = (data->ray->side_dist_y
+				- data->ray->delta_dist_y);
 }
 
 void	put_texture_on_walls(t_data *data)
 {
-	Y = DRAW_START;
-	while (Y < DRAW_END)
+	data->ray->y = data->ray->draw_start;
+	while (data->ray->y < data->ray->draw_end)
 	{
-		TEX_Y = (int)TEX_POS & (TEXHEIGHT - 1);
-		TEX_POS += STEP;
-		COLOR = data->texture[TEX_NUM][TEXHEIGHT * TEX_Y + TEX_X];
-		if (SIDE == 1)
-			COLOR = (COLOR >> 1) & 8355711;
-		BUFFER[Y][X] = COLOR;
-		Y++;
+		data->ray->tex_y = (int)data->ray->tex_pos & (TEXHEIGHT - 1);
+		data->ray->tex_pos += data->ray->step;
+		data->ray->color = data->texture[data->ray->tex_num][TEXHEIGHT
+			* data->ray->tex_y + data->ray->tex_x];
+		if (data->ray->side == 1)
+			data->ray->color = (data->ray->color >> 1) & 8355711;
+		data->ray->buffer[data->ray->y][data->ray->x] = data->ray->color;
+		data->ray->y++;
 	}
 }
 
 void	texture_pos_definition(t_data *data)
 {
-	if (SIDE == 0)
-		WALL_X = POS_Y + PERP_WALL_DIST * RAY_DIR_Y;
+	if (data->ray->side == 0)
+		data->ray->wall_x = data->player->pos_y + data->ray->perp_wall_dist
+			* data->ray->ray_dir_y;
 	else
-		WALL_X = POS_X + PERP_WALL_DIST * RAY_DIR_X;
-	WALL_X -= floor((WALL_X));
-	TEX_X = (int)(WALL_X * (double)TEXWIDTH);
-	if (SIDE == 0 && RAY_DIR_X > 0)
-		TEX_X = TEXWIDTH - TEX_X - 1;
-	if (SIDE == 1 && RAY_DIR_Y < 0)
-		TEX_X = TEXWIDTH - TEX_X - 1;
-	STEP = 1.0 * TEXHEIGHT / (double)LINE_HEIGHT;
-	TEX_POS = ((double)DRAW_START - SCREEN_HEIGHT * 0.5
-			+ (double)LINE_HEIGHT * 0.5) * STEP;
+		data->ray->wall_x = data->player->pos_x + data->ray->perp_wall_dist
+			* data->ray->ray_dir_x;
+	data->ray->wall_x -= floor((data->ray->wall_x));
+	data->ray->tex_x = (int)(data->ray->wall_x * (double)TEXWIDTH);
+	if (data->ray->side == 0 && data->ray->ray_dir_x > 0)
+		data->ray->tex_x = TEXWIDTH - data->ray->tex_x - 1;
+	if (data->ray->side == 1 && data->ray->ray_dir_y < 0)
+		data->ray->tex_x = TEXWIDTH - data->ray->tex_x - 1;
+	data->ray->step = 1.0 * TEXHEIGHT / (double)data->ray->line_height;
+	data->ray->tex_pos = ((double)data->ray->draw_start - SCREEN_HEIGHT * 0.5
+			+ (double)data->ray->line_height * 0.5) * data->ray->step;
 }
 
 void	define_camx_raydir_and_map(t_data *data)
 {
-	CAMERA_X = 2.00 * (double)X / SCREEN_WIDTH - 1;
-	RAY_DIR_X = DIR_X + PLANE_X * CAMERA_X;
-	RAY_DIR_Y = DIR_Y + PLANE_Y * CAMERA_X;
-	MAP_X = (int)POS_X;
-	MAP_Y = (int)POS_Y;
+	data->ray->camera_x = 2.00 * (double)data->ray->x / SCREEN_WIDTH - 1;
+	data->ray->ray_dir_x = data->player->dir_x + data->player->plane_x
+		* data->ray->camera_x;
+	data->ray->ray_dir_y = data->player->dir_y + data->player->plane_y
+		* data->ray->camera_x;
+	data->ray->map_x = (int)data->player->pos_x;
+	data->ray->map_y = (int)data->player->pos_y;
 }
 
 void	raycasting_loop(t_data *data)
@@ -69,19 +76,19 @@ void	raycasting_loop(t_data *data)
 	init_ray_struct(&raycasting);
 	data->ray = &raycasting;
 	clean_window(data);
-	while (X < SCREEN_WIDTH)
+	while (data->ray->x < SCREEN_WIDTH)
 	{
 		define_camx_raydir_and_map(data);
 		step_and_sidedist_calcul(data);
-		HIT = 0;
+		data->ray->hit = 0;
 		check_hit(data);
 		perp_wall_dist_definition(data);
 		draw_startend_definition(data);
 		texture_attribution(data);
 		texture_pos_definition(data);
 		put_texture_on_walls(data);
-		X++;
+		data->ray->x++;
 	}
-	copy_buffer_to_image(data, BUFFER);
+	copy_buffer_to_image(data, data->ray->buffer);
 	fps_controler(data);
 }

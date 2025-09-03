@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:15:56 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/03 11:22:51 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:47:49 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,34 +105,6 @@ typedef struct s_ray
 	__uint32_t	color;
 }	t_ray;
 
-# define X data->ray->x
-# define Y data->ray->y
-# define MAP_X data->ray->map_x
-# define MAP_Y data->ray->map_y
-# define STEP_X data->ray->step_x
-# define STEP_Y data->ray->step_y
-# define HIT data->ray->hit
-# define SIDE data->ray->side
-# define LINE_HEIGHT data->ray->line_height
-# define DRAW_START data->ray->draw_start
-# define DRAW_END data->ray->draw_end
-# define TEX_NUM data->ray->tex_num
-# define TEX_X data->ray->tex_x
-# define TEX_Y data->ray->tex_y
-# define SIDE_DIST_X data->ray->side_dist_x
-# define SIDE_DIST_Y data->ray->side_dist_y
-# define DELTA_DIST_X data->ray->delta_dist_x
-# define DELTA_DIST_Y data->ray->delta_dist_y
-# define PERP_WALL_DIST data->ray->perp_wall_dist
-# define CAMERA_X data->ray->camera_x
-# define RAY_DIR_X data->ray->ray_dir_x
-# define RAY_DIR_Y data->ray->ray_dir_y
-# define WALL_X data->ray->wall_x
-# define STEP data->ray->step
-# define TEX_POS data->ray->tex_pos
-# define BUFFER data->ray->buffer
-# define COLOR data->ray->color
-
 typedef struct s_data
 {
 	char			**map;
@@ -158,16 +130,6 @@ typedef struct s_data
 	t_ray			*ray;
 }	t_data;
 
-# define DIR_X data->player->dir_x
-# define DIR_Y data->player->dir_y
-# define POS_X data->player->pos_x
-# define POS_Y data->player->pos_y
-# define PLANE_X data->player->plane_x
-# define PLANE_Y data->player->plane_y
-# define MOVE_SPEED data->player->move_speed
-# define ROT_SPEED data->player->rot_speed
-# define MAP data->map
-
 //############ GRAPHIC_DIR ############//
 int		main(int argc, char **argv);
 void	raycasting_loop(t_data *data);
@@ -183,6 +145,7 @@ void	copy_buffer_to_image(t_data *data,
 			__uint32_t buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
 void	init_time(t_bigben *bigben);
 
+void	ray_dir_x(t_data *data);
 void	step_and_sidedist_calcul(t_data *data);
 void	check_hit(t_data *data);
 void	draw_startend_definition(t_data *data);
