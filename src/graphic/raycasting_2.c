@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:47:31 by pjurdana          #+#    #+#             */
-/*   Updated: 2025/09/03 13:49:28 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/15 11:10:20 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	raycasting_loop(t_data *data)
 
 	init_ray_struct(&raycasting);
 	data->ray = &raycasting;
-	clean_window(data);
+	clean_window(data, 0, 0);
 	while (data->ray->x < SCREEN_WIDTH)
 	{
 		define_camx_raydir_and_map(data);

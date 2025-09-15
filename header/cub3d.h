@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:15:56 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/15 09:36:10 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/15 11:10:30 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	find_player_start(t_data *data);
 void	dir_player(t_data *data, char c);
 void	init_image(t_data *data);
 void	fill_texture_tab(t_data *data);
-void	clean_window(t_data *data);
+void	clean_window(t_data *data, int x, int y);
 void	copy_buffer_to_image(t_data *data,
 			__uint32_t buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
 void	init_time(t_bigben *bigben);
