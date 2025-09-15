@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:15:56 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/03 13:47:49 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/15 09:36:10 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,6 @@ void	s_handler(t_data *data);
 void	w_handler(t_data *data);
 void	d_handler(t_data *data);
 int		handle_key(int keycode, t_data *data);
+int		free_all(t_data *data);
 
 #endif

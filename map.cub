@@ -1,7 +1,7 @@
  SO      ./textures/xpm/bark.xpm
 EA         ./textures/xpm/bookshelf.xpm
 NO  ./textures/xpm/bricks.xpm
-C             80,170,230
+C             255,255,0
 
    WE   ./textures/xpm/door.xpm
 

@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:07:54 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/03 11:19:50 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/15 09:36:59 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ref_main(t_data data)
 	raycasting_loop(&data);
 	fps_controler(&data);
 	mlx_hook(data.win->mlx_win, KeyPress, KeyPressMask, &handle_key, &data);
+	mlx_hook(data.win->mlx_win, DestroyNotify, 0, free_all, &data);
 	mlx_loop(data.win->mlx_ptr);
 }
 
