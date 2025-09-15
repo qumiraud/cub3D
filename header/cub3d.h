@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:15:56 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/15 11:10:30 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/15 11:24:05 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,12 @@ void	fps_controler(t_data *data);
 int		main(int argc, char **argv);
 
 //########### INPUT_DIR ##############//
-void	a_handler(t_data *data);
+void	left_handler(t_data *data);
 void	s_handler(t_data *data);
 void	w_handler(t_data *data);
+void	a_handler(t_data *data);
 void	d_handler(t_data *data);
+void	right_handler(t_data *data);
 int		handle_key(int keycode, t_data *data);
 int		free_all(t_data *data);
 

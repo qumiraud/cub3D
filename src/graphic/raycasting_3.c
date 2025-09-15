@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 10:48:27 by pjurdana          #+#    #+#             */
-/*   Updated: 2025/09/03 13:44:23 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/15 12:12:48 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ void	draw_startend_definition(t_data *data)
 		data->ray->draw_start = 0;
 	data->ray->draw_end = data->ray->line_height * 0.5 + SCREEN_HEIGHT * 0.5;
 	if (data->ray->draw_end >= SCREEN_HEIGHT)
-		data->ray->draw_end = SCREEN_HEIGHT - 1;
+		data->ray->draw_end = SCREEN_HEIGHT;
 }

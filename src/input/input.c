@@ -6,7 +6,7 @@
 /*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 14:33:54 by pjurdana          #+#    #+#             */
-/*   Updated: 2025/09/15 09:37:24 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/15 12:14:49 by qumiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,42 @@ void	tab_handler(t_data *data)
 		data->fps_on_window = 0;
 }
 
+void	left_handler(t_data *data)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = data->player->dir_x;
+	data->player->dir_x = data->player->dir_x * cos(-data->player->rot_speed)
+		- data->player->dir_y * sin(-data->player->rot_speed);
+	data->player->dir_y = old_dir_x * sin(-data->player->rot_speed)
+		+ data->player->dir_y * cos(-data->player->rot_speed);
+	old_plane_x = data->player->plane_x;
+	data->player->plane_x = data->player->plane_x
+		* cos(-data->player->rot_speed) - data->player->plane_y
+		* sin(-data->player->rot_speed);
+	data->player->plane_y = old_plane_x * sin(-data->player->rot_speed)
+		+ data->player->plane_y * cos(-data->player->rot_speed);
+}
+
+void	right_handler(t_data *data)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = data->player->dir_x;
+	data->player->dir_x = data->player->dir_x * cos(data->player->rot_speed)
+		- data->player->dir_y * sin(data->player->rot_speed);
+	data->player->dir_y = old_dir_x * sin(data->player->rot_speed)
+		+ data->player->dir_y * cos(data->player->rot_speed);
+	old_plane_x = data->player->plane_x;
+	data->player->plane_x = data->player->plane_x
+		* cos(data->player->rot_speed) - data->player->plane_y
+		* sin(data->player->rot_speed);
+	data->player->plane_y = old_plane_x * sin(data->player->rot_speed)
+		+ data->player->plane_y * cos(data->player->rot_speed);
+}
+
 int	handle_key(int keycode, t_data *data)
 {
 	if (keycode == 65307 || keycode == XK_Escape)
@@ -50,9 +86,13 @@ int	handle_key(int keycode, t_data *data)
 		w_handler(data);
 	if (keycode == 's' || keycode == 115 || keycode == XK_Down)
 		s_handler(data);
-	if (keycode == XK_Left || keycode == XK_a)
+	if (keycode == XK_Left)
+		left_handler(data);
+	if (keycode == XK_Right)
+		right_handler(data);
+	if (keycode == XK_a)
 		a_handler(data);
-	if (keycode == XK_Right || keycode == XK_d)
+	if (keycode == XK_d)
 		d_handler(data);
 	raycasting_loop(data);
 	return (0);
