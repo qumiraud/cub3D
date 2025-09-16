@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:39:07 by lguiet            #+#    #+#             */
-/*   Updated: 2025/09/16 13:22:12 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/16 13:27:36 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	check_holes_2(char **map)
 	i--;
 	while (map[i][j])
 	{
-		if (is_player(map[i][j]))
+		if (is_player(map[i][j]) || map[i][j] == '0')
 		{
 			write(2, "hole in the map\n", 17);
 			free_map(map);
