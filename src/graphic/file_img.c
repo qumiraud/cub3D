@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/03 11:04:35 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/16 14:36:23 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	fill_texture_tab(t_data *data)
 	{
 		if (!data->texture_img[i])
 		{
-			fprintf(stderr, "Erreur lors du chargement de la texture %d\n", i);
+			printf("mlx_get_data_addr failed for texture %d\n", i);
 			exit(1);
 		}
 		data->texture[i] = (int *)mlx_get_data_addr(data->texture_img[i],
 				&data->bpp, &size_line, &endian);
 		if (!data->texture[i])
 		{
-			fprintf(stderr, "mlx_get_data_addr failed for texture %d\n", i);
+			printf(stderr, "mlx_get_data_addr failed for texture %d\n", i);
 			exit(1);
 		}
 		i++;
@@ -73,7 +73,7 @@ void	copy_buffer_to_image(t_data *data,
 			if (pixel_index < 0 || pixel_index >= SCREEN_HEIGHT
 				* data->size_line)
 			{
-				fprintf(stderr, " pixel_index hors limites: %d\n", pixel_index);
+				printf("pixel_index out of bounds: %d\n", pixel_index);
 				exit(1);
 			}
 			*((unsigned int *)(data->img_data + pixel_index)) = buffer[y][x];
@@ -91,14 +91,14 @@ void	init_image(t_data *data)
 			SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!data->img_ptr)
 	{
-		fprintf(stderr, "mlx_new_image failed\n");
+		printf("mlx_new_image failed\n");
 		exit(1);
 	}
 	data->img_data = mlx_get_data_addr(data->img_ptr, &data->bpp,
 			&data->size_line, &data->endian);
 	if (!data->img_data)
 	{
-		fprintf(stderr, "mlx_get_data_addr for main image failed\n");
+		printf("mlx_get_data_addr for main image failed\n");
 		exit(1);
 	}
 }

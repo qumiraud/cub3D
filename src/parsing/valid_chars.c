@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:23:37 by lguiet            #+#    #+#             */
-/*   Updated: 2025/09/16 13:23:04 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/16 14:36:59 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	end_with_walls(char **map)
 	return (1);
 }
 
-// check if player or 0 is next to a hole and that first colums is wall
 int	check_holes(char **map)
 {
 	int	i;

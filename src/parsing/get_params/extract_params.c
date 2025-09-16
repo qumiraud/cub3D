@@ -6,13 +6,12 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:12:36 by lguiet            #+#    #+#             */
-/*   Updated: 2025/08/19 15:18:57 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/16 14:36:55 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/parsing.h"
 
-// return 0 if alloc failed, comp = length of the ID + space
 int	alloc_param_value(char *trimmed, char *id, char **target, int comp)
 {
 	if (ft_strncmp(trimmed, id, comp) == 0)
@@ -24,7 +23,6 @@ int	alloc_param_value(char *trimmed, char *id, char **target, int comp)
 	return (1);
 }
 
-//return 0 if alloc fails
 int	alloc_param(char **infile, t_param *param)
 {
 	char	*trimmed;
@@ -88,7 +86,6 @@ void	check_colors(char *trimmed, t_param *param, int i)
 	}
 }
 
-//check if textures and colors are defined and allocate them in t_param
 int	check_param(char **infile, t_param *param, int map_index)
 {
 	char	*trimmed;
