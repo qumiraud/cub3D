@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:26:23 by lguiet            #+#    #+#             */
-/*   Updated: 2025/09/03 11:18:31 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/16 13:18:18 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int			has_valid_char(char **map);
 char		**map_to_rectangle(char **map);
 int			has_valid_char(char **map);
 int			check_holes(char **map);
+int			check_holes_2(char **map);
 
 // valid_chars
 void		map_is_valid(char ***map_rect, char *argv, t_param *param);

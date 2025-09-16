@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:07:54 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/15 09:36:59 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/16 10:40:01 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	guardian(t_data *data, t_param *param, int argc, char **argv)
 	map_rect = NULL;
 	if (argc != 2)
 	{
-		write(2, "Error\nenter an infile .cub\n", 28);
+		write(2, "Error\nenter only an infile .cub\n", 28);
 		return (0);
 	}
 	map_is_valid(&map_rect, argv[1], param);

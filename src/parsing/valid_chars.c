@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:23:37 by lguiet            #+#    #+#             */
-/*   Updated: 2025/08/19 15:35:06 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/16 13:23:04 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ void	map_is_valid(char ***map_rect, char *argv, t_param *param)
 	}
 	free_map(infile);
 	*map_rect = map_to_rectangle(map);
-	if (!*map_rect || !has_valid_char(*map_rect) || !check_holes(*map_rect))
+	if (!*map_rect || !has_valid_char(*map_rect)
+		|| !check_holes(*map_rect) || !check_holes_2(*map_rect))
 	{
 		free_param(param);
 		*map_rect = NULL;

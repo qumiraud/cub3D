@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qumiraud <qumiraud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 16:39:07 by lguiet            #+#    #+#             */
-/*   Updated: 2025/09/03 11:08:46 by qumiraud         ###   ########.fr       */
+/*   Updated: 2025/09/16 13:22:12 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,27 @@ char	**extract_map(char **infile, int map_index)
 	}
 	map_lines[i] = NULL;
 	return (map_lines);
+}
+
+int	check_holes_2(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map && map[i])
+		i++;
+	i--;
+	while (map[i][j])
+	{
+		if (is_player(map[i][j]))
+		{
+			write(2, "hole in the map\n", 17);
+			free_map(map);
+			return (0);
+		}
+		j++;
+	}
+	return (1);
 }
