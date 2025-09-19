@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/16 14:36:23 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/19 12:35:30 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	fill_texture_tab(t_data *data)
 				&data->bpp, &size_line, &endian);
 		if (!data->texture[i])
 		{
-			printf(stderr, "mlx_get_data_addr failed for texture %d\n", i);
+			printf("mlx_get_data_addr failed for texture %d\n", i);
 			exit(1);
 		}
 		i++;
