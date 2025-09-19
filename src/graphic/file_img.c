@@ -6,7 +6,7 @@
 /*   By: pjurdana <pjurdana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:29:43 by qumiraud          #+#    #+#             */
-/*   Updated: 2025/09/19 12:35:30 by pjurdana         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:32:19 by pjurdana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	file_to_image(t_data *data)
 	width = TEXWIDTH;
 	height = TEXHEIGHT;
 	data->texture_img[0] = mlx_xpm_file_to_image(data->win->mlx_ptr,
-			data->no_path, &width, &height);
-	data->texture_img[1] = mlx_xpm_file_to_image(data->win->mlx_ptr,
-			data->so_path, &width, &height);
-	data->texture_img[2] = mlx_xpm_file_to_image(data->win->mlx_ptr,
 			data->ea_path, &width, &height);
-	data->texture_img[3] = mlx_xpm_file_to_image(data->win->mlx_ptr,
+	data->texture_img[1] = mlx_xpm_file_to_image(data->win->mlx_ptr,
 			data->we_path, &width, &height);
+	data->texture_img[2] = mlx_xpm_file_to_image(data->win->mlx_ptr,
+			data->so_path, &width, &height);
+	data->texture_img[3] = mlx_xpm_file_to_image(data->win->mlx_ptr,
+			data->no_path, &width, &height);
 }
 
 void	fill_texture_tab(t_data *data)
